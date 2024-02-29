@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Responsive Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      header {
+        background-color: #343a40;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      nav {
+        background-color: #343a40;
+        color: white;
+        padding-top: 20px;
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+      }
+
+      nav a:hover {
+        background-color: #495057;
+      }
+
+      main {
+        margin-left: 250px;
+        padding: 20px;
+        transition: margin-left 0.3s;
+      }
+
+      .menu-btn {
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+        background-color: #343a40;
+        color: white;
+        border: none;
+        position: fixed;
+        left: 20px;
+        top: 20px;
+        z-index: 2;
+      }
+
+      .menu-btn:hover {
+        background-color: #495057;
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          width: 100%;
+          height: auto;
+          position: static;
+        }
+
+        main {
+          margin-left: 0;
+        }
+      }
+      #budgetChart {
+        width: 600px;
+        height: 400px;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <h1>Real time building construction</h1>
+    </header>
+
+    <nav>
+      <a href="#" onclick="closeMenu()">Home</a>
+      <a href="#" onclick="closeMenu()">Analytics</a>
+      <a href="#" onclick="closeMenu()">Reports</a>
+      <a href="#" onclick="closeMenu()">Settings</a>
+      <a href="#" onclick="closeMenu()">Logout</a>
+    </nav>
+
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Widget 1</h5>
+                <p class="card-text">Content for Widget 1.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Widget 2</h5>
+                <p class="card-text">Content for Widget 2.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Widget 3</h5>
+                <p class="card-text">Content for Widget 3.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <canvas id="budgetChart"></canvas>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      function toggleMenu() {
+        const main = document.querySelector("main");
+        main.style.marginLeft =
+          main.style.marginLeft === "250px" ? "0" : "250px";
+      }
+
+      function closeMenu() {
+        const main = document.querySelector("main");
+        main.style.marginLeft = "0";
+      }
+      const categories = [
+        "Labor",
+        "Materials",
+        "Equipment",
+        "Permits",
+        "Subcontractors",
+        "Overhead",
+      ];
+      let initialBudget = [200000, 300000, 100000, 50000, 150000, 70000];
+
+      // Placeholder for real-time expenditure
+      let realTimeExpenditure = [180000, 250000, 90000, 48000, 120000, 65000];
+
+      // Calculate remaining budget for each category
+      let remainingBudget = initialBudget.map(
+        (initial, index) => initial - realTimeExpenditure[index]
+      );
+
+      // Get the canvas element
+      const ctx = document.getElementById("budgetChart").getContext("2d");
+
+      // Create the initial bar chart
+      const chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: categories,
+          datasets: [
+            {
+              label: "Initial Budget",
+              backgroundColor: "rgba(75, 192, 192, 0.5)",
+              data: initialBudget,
+            },
+            {
+              label: "Real-time Expenditure",
+              backgroundColor: "rgba(255, 99, 132, 0.5)",
+              data: realTimeExpenditure,
+            },
+            {
+              label: "Remaining Budget",
+              backgroundColor: "rgba(255, 206, 86, 0.5)",
+              data: remainingBudget,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: { stacked: true },
+            y: { stacked: true },
+          },
+        },
+      });
+
+      // Simulate real-time updates (replace this with actual data fetching)
+      setInterval(() => {
+        // Update real-time expenditure (for simulation purposes)
+        realTimeExpenditure = realTimeExpenditure.map(
+          (value) => value + Math.floor(Math.random() * 10000)
+        );
+
+        // Recalculate remaining budget
+        remainingBudget = initialBudget.map(
+          (initial, index) => initial - realTimeExpenditure[index]
+        );
+
+        // Update the chart data
+        chart.data.datasets[1].data = realTimeExpenditure;
+        chart.data.datasets[2].data = remainingBudget;
+
+        // Update the chart
+        chart.update();
+      }, 5000);
+    </script>
+  </body>
+</html>

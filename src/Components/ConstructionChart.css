@@ -1,0 +1,37 @@
+.bar,
+.pie {
+  width: 80%;
+  height: 300px;
+  margin: 20px auto;
+}
+.cons {
+  margin-left: 140px;
+}
+.chart-align {
+  display: flex;
+  justify-content: space-around;
+
+  padding: 20px;
+
+  height: 38vh;
+}
+.table-align {
+  display: flex;
+  justify-content: space-evenly;
+}
+.table-head {
+  font-family: serif;
+  font-weight: bold;
+  font-size: larger;
+  text-transform: uppercase;
+
+  padding: 15px;
+}
+table {
+  margin: 15px;
+}
+td,
+td {
+  padding: 5px;
+  text-align: center;
+}

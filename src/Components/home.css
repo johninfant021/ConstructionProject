@@ -1,0 +1,49 @@
+main {
+  margin-left: 150px;
+
+  background-color: white;
+
+  letter-spacing: 2px;
+}
+.image_format {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.img {
+  height: 250px;
+  width: 400px;
+}
+.heading {
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 15px;
+}
+.title {
+  text-transform: capitalize;
+  font-size: xx-large;
+  font-family: "Times New Roman", Times, serif;
+  letter-spacing: 3px;
+  background-color: white;
+  padding: 30px;
+}
+.con {
+  font-family: "Times New Roman", Times, serif;
+  font-size: x-large;
+  margin: 20px 0;
+}
+.con_head {
+  text-transform: capitalize;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: xx-large;
+}
+li {
+  padding: 10px;
+  list-style: none;
+}
+.img:hover {
+  transform: scale(80%);
+  transition: 0.5s;
+}
